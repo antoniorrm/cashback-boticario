@@ -1,17 +1,15 @@
-import React from 'react';
-import { Button, ThemeProvider } from '@material-ui/core';
-import './App.css';
-import theme from './theme';
+import React from 'react'
+import { ThemeProvider } from '@material-ui/core'
+import './App.css'
+import theme from './theme'
+import Routes from './Routes'
 
 function App() {
-  return (
-			<ThemeProvider theme={theme}>
-				{/* <GlobalStyles /> */}
-				{/* {routing} */}
-				<Button color='primary'>Primary</Button>
-				<Button color='secondary'>Secondary</Button>
-			</ThemeProvider>
-		)
+	return (
+		<ThemeProvider theme={theme}>
+			<Routes />
+		</ThemeProvider>
+	)
 }
 
-export default App;
+export default App
