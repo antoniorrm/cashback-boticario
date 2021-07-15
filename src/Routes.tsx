@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
 import SignUp from './views/signUp/SignUp'
 import SignIn from './views/signIn/SignIn'
+import NotFoundView from './views/notFoundView/NotFoundView'
 
 const Routes = () => {
 	return (
@@ -26,6 +27,13 @@ const Routes = () => {
 				/>
 				<Redirect exact from='/redirect' to='/sign-in' />
 				<RouteWithLayout exact layout={AuthLayout} path='/home' component={Home} />
+				<RouteWithLayout
+					component={NotFoundView}
+					exact
+					layout={AuthLayout}
+					path='/not-found'
+				/>
+				<Redirect to='/not-found' />
 			</Switch>
 		</BrowserRouter>
 	)
