@@ -4,9 +4,8 @@ import { BrowserRouter, Redirect, Switch } from 'react-router-dom'
 import RouteWithLayout from './components/RouteWithLayout'
 import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
-import Home from './views/Home'
-import SignIn from './views/SignIn'
-import SignUp from './views/SignUp'
+import SignUp from './views/signUp/SignUp'
+import SignIn from './views/signIn/SignIn'
 
 const Routes = () => {
 	return (
