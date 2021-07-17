@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import LayoutProps from '../../types'
+import TopBar from '../../components/TopBar'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -34,6 +35,7 @@ const MainLayout = (props: LayoutProps) => {
 
 	return (
 		<div className={classes.root}>
+			<TopBar />
 			<div className={classes.wrapper}>
 				<div className={classes.contentContainer}>
 					<div className={classes.content}>{children}</div>
