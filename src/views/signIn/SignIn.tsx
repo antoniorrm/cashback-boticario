@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
 	},
 	img: {
 		width: '80%',
-		margin: 4,
+		margin: theme.spacing(1),
+		marginBottom: theme.spacing(4),
 	},
 }))
 
