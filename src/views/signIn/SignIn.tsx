@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
 	const classes = useStyles()
 
+    const [email, setEmail] = useState<String>()
+	const [password, setPassword] = useState<String>()
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
@@ -49,10 +52,12 @@ export default function SignIn() {
 						required
 						fullWidth
 						id='email'
-						label='Email Address'
+						label='Email'
 						name='email'
 						autoComplete='email'
 						autoFocus
+						value={email}
+						onChange={e => setEmail(e.target.value)}
 					/>
 					<TextField
 						variant='outlined'
@@ -60,10 +65,12 @@ export default function SignIn() {
 						required
 						fullWidth
 						name='password'
-						label='Password'
+						label='Senha'
 						type='password'
 						id='password'
 						autoComplete='current-password'
+						value={password}
+						onChange={e => setPassword(e.target.value)}
 					/>
 					<Grid container direction='row'>
 						<Grid item>

@@ -35,4 +35,26 @@ function NumberFormatCustom(props: NumberFormatCustomProps) {
 	)
 }
 
-export { NumberFormatCustom }
+function NumberFormatCPF(props: NumberFormatCustomProps) {
+	const { inputRef, onChange, ...other } = props
+
+	return (
+		<NumberFormat
+			{...other}
+			getInputRef={inputRef}
+			onValueChange={values => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value,
+					},
+				})
+			}}
+			format='###.###.###-##'
+			mask='_'
+			color='primary'
+		/>
+	)
+}
+
+export { NumberFormatCustom, NumberFormatCPF }
