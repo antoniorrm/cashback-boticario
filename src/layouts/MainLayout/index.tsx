@@ -6,7 +6,6 @@ import TopBar from '../../components/TopBar'
 const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.default,
-		display: 'flex',
 		height: '100%',
 		overflow: 'hidden',
 		width: '100%',
@@ -41,6 +40,7 @@ const MainLayout = (props: LayoutProps) => {
 					<div className={classes.content}>{children}</div>
 				</div>
 			</div>
+            <div style={{ textAlign: "center", height: "30px"}}>DEV BY: ANTONIORRM</div>
 		</div>
 	)
 }
