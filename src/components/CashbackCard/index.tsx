@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 	},
 })
 
-export default function CashbackCard() {
+const CashbackCard = () => {
 	const classes = useStyles()
 
 	return (
@@ -26,3 +26,5 @@ export default function CashbackCard() {
 		</Card>
 	)
 }
+
+export default CashbackCard

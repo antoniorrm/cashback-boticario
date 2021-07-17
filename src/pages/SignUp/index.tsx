@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container'
 import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
-import LogoBoticatio from '../../assets/img/logo-boticario-primary.svg'
+import LogoBoticario from '../../assets/img/logo-boticario-primary.svg'
 import { NumberFormatCPF } from '../../utils/maskedInputUtils'
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +52,7 @@ export default function SignUp() {
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
 			<div className={classes.paper}>
-				<img className={classes.img} src={LogoBoticatio} alt='Logo empresa' />
+				<img className={classes.img} src={LogoBoticario} alt='Logo empresa' />
 				<Typography component='h1' variant='h5'>
 					Criar conta
 				</Typography>

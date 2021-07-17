@@ -10,8 +10,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker } from '@material-ui/pickers'
-
-import { NumberFormatCustom } from '../../../utils/maskedInputUtils'
+import { NumberFormatCustom } from '../../../../utils/maskedInputUtils'
 
 const useStyles = makeStyles(theme => ({
 	margin: {

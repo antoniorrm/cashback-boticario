@@ -18,7 +18,7 @@ const RouteWithLayout = (props: RouteWithLayoutProps) => {
 		<Route
 			{...rest}
 			render={(matchProps: RouteComponentProps) =>
-				true ? (
+				location ? (
 					<Layout>
 						<Component {...matchProps} />
 					</Layout>

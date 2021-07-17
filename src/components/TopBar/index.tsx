@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, makeStyles, Button } from '@material-ui/core';
-
-import LogoBoticatio from '../assets/img/logo-boticario-white.svg'
+import LogoBoticario from '../../assets/img/logo-boticario-white.svg'
 
 const useStyles = makeStyles(() => ({
 	img: {
@@ -21,7 +20,7 @@ const TopBar = () => {
   return (
 			<AppBar elevation={0}>
 				<Toolbar className={classes.toolbar}>
-					<img className={classes.img} src={LogoBoticatio} alt='Logo empresa' />
+					<img className={classes.img} src={LogoBoticario} alt='Logo empresa' />
 					<Button variant='outlined' color='inherit'>
 						Sair
 					</Button>

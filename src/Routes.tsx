@@ -1,13 +1,13 @@
 /* eslint-disable arrow-body-style */
 import React from 'react'
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom'
-import RouteWithLayout from './components/RouteWithLayout'
 import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
-import Home from './views/home/Home'
-import SignUp from './views/signUp/SignUp'
-import SignIn from './views/signIn/SignIn'
-import NotFoundView from './views/notFoundView/NotFoundView'
+import NotFoundView from './pages/NotFoundView'
+import SignUp from './pages/SignUp'
+import SignIn from './pages/SignIn'
+import Home from './pages/Home'
+import RouteWithLayout from './components/RouteWithLayout'
 
 const Routes = () => {
 	return (
