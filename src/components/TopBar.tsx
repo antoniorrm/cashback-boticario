@@ -3,12 +3,10 @@ import { AppBar, Toolbar, makeStyles, Button } from '@material-ui/core';
 
 import LogoBoticatio from '../assets/img/logo-boticario-white.svg'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
 	img: {
-		width: '20%',
-		[theme.breakpoints.down('sm')]: {
-			width: '50%',
-		},
+        width: "30vh",
+        maxHeight: "64px",
 		margin: 4,
 	},
 	toolbar: {
