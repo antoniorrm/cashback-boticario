@@ -8,7 +8,7 @@ const theme = createTheme({
 			paper: colors.common.white,
 		},
 		primary: {
-			main: colors.indigo[500],
+			main: '#65987C',
 		},
 		secondary: {
 			main: colors.indigo[500],
