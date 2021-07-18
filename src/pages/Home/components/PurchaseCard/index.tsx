@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, IconButton, Typography } from '@material-ui/core'
 import { Delete, Edit } from '@material-ui/icons'
 
+import { formatCurrecyBR } from '../../../../utils/formatCurrecyBR'
+
 const useStyles = makeStyles(theme => ({
 	root: {
 		marginTop: '8px',
@@ -32,20 +34,29 @@ const useStyles = makeStyles(theme => ({
 }))
 
 type PurchaseCardProps = {
-	codigo: string,
-	value: number,
-	valuePercent: number,
-	percent: number,
-    date: string,
-	status: string,
-	onEdit: () => void,
+	codigo: string
+	value: number
+	valuePercent: number
+	percent: number
+	date: string
+	status: string
+	onEdit: () => void
 	onDelete: () => void
 }
 
 export default function PurchaseCard(props: PurchaseCardProps) {
 	const classes = useStyles()
 
-    const {codigo, value, valuePercent, percent, date, status, onEdit, onDelete} = props
+	const {
+		codigo,
+		value,
+		valuePercent,
+		percent,
+		date,
+		status,
+		onEdit,
+		onDelete,
+	} = props
 
 	return (
 		<Card className={classes.root}>
@@ -59,19 +70,19 @@ export default function PurchaseCard(props: PurchaseCardProps) {
 				<div className={classes.item}>
 					<Typography color='textSecondary'>VALOR</Typography>
 					<Typography variant='body2' component='p'>
-						R$ {value}
+						{formatCurrecyBR(value)}
 					</Typography>
 				</div>
 				<div className={classes.item}>
 					<Typography color='textSecondary'>CASHBACK (%)</Typography>
 					<Typography variant='body2' component='p'>
-						R$ {valuePercent} ({percent}%)
+						{formatCurrecyBR(valuePercent)} ({percent}%)
 					</Typography>
 				</div>
 				<div className={classes.item}>
 					<Typography color='textSecondary'>DATA</Typography>
 					<Typography variant='body2' component='p'>
-						{date}
+						{date !== null && new Date(date).toLocaleDateString()}
 					</Typography>
 				</div>
 				<div className={classes.item}>
