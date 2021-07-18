@@ -1,7 +1,10 @@
 import React, {
-    FormEvent,
+	SetStateAction,
+	Dispatch,
+	FormEvent,
 	forwardRef,
 	useCallback,
+	useEffect,
 	useImperativeHandle,
 	useState,
 } from 'react'
@@ -16,8 +19,12 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker } from '@material-ui/pickers'
+import { useSelector } from 'react-redux'
+
 import { NumberFormatCustom } from '../../../../utils/maskedInputUtils'
 import api from '../../../../service/api'
+import { StoreState } from '../../../../store/createStore'
+import { Purchase } from '../..'
 
 const useStyles = makeStyles(theme => ({
 	margin: {
@@ -50,47 +57,81 @@ export interface ModalHandler {
 	handleOpen: () => void
 }
 
+type ModalHandlerProps = {
+	onRefresh: () => void
+	purchaseEdit: Purchase | null
+	setPurchaseEdit: Dispatch<SetStateAction<Purchase | null>>
+}
+
 const PurchaseFormModal = (
-	props: any,
+	props: ModalHandlerProps,
 	ref: React.Ref<ModalHandler> | undefined
 ) => {
 	const classes = useStyles()
+	const { onRefresh, purchaseEdit, setPurchaseEdit } = props
+
+	const { userData } = useSelector((state: StoreState) => state.auth)
 
 	const [open, setOpen] = useState(false)
-	const [codigo, setCodigo] = useState<String>('')
-	const [value, setValue] = useState<String>('')
+	const [codigo, setCodigo] = useState<string>('')
+	const [value, setValue] = useState<string>('')
 	const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
 
 	const handleOpen = useCallback(() => {
 		setOpen(true)
 	}, [])
 
-	useImperativeHandle(ref, () => ({ handleOpen }))
+	useImperativeHandle(ref, () => ({ handleOpen, value }))
+
 	const handleClose = useCallback(() => {
 		setOpen(false)
+		setPurchaseEdit(null)
+		setCodigo('')
+		setValue('')
+		setSelectedDate(new Date())
 	}, [])
 
 	const handleDateChange = (date: Date | null) => {
-		console.log(date?.toISOString())
 		setSelectedDate(date)
 	}
+
+	useEffect(() => {
+		if (purchaseEdit !== null) {
+			setCodigo(purchaseEdit.codigo)
+			setValue(String(purchaseEdit.value))
+			setSelectedDate(new Date(purchaseEdit.date))
+		}
+	}, [purchaseEdit])
 
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault()
 		try {
-			await api.post('/purchases', {
-				codigo,
-				value,
-				valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
-				percent: 12,
-				date: selectedDate?.toISOString(),
-				status: 'EM VALIDAÇÃO',
-			})
-            handleClose()
+			if (purchaseEdit !== null) {
+				await api.patch(`/purchases/${purchaseEdit.id}`, {
+					codigo,
+					value,
+					valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
+					percent: 12,
+					date: selectedDate?.toISOString(),
+				})
+			} else {
+				await api.post('/purchases', {
+					codigo,
+					value,
+					valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
+					percent: 12,
+					date: selectedDate?.toISOString(),
+					status: 'EM VALIDAÇÃO',
+					cpf: userData?.cpf,
+				})
+			}
+			handleClose()
+			onRefresh()
 		} catch (error) {
 			console.log(error)
 		}
 	}
+
 	return (
 		<Modal
 			disablePortal
@@ -112,7 +153,7 @@ const PurchaseFormModal = (
 					<Grid container direction='row' justifyContent='center' spacing={2}>
 						<Grid item>
 							<Typography variant='h5' component='h2'>
-								Adicionar compra
+								{purchaseEdit !== null ? 'Editar compra' : 'Adicionar compra'}
 							</Typography>
 						</Grid>
 						<Grid item xs={12} sm={12}>

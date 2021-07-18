@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	Box,
 	Container,
@@ -32,13 +32,13 @@ const useStyles = makeStyles(theme => ({
 	},
 }))
 
-type Purchase = {
-    id: number
+export type Purchase = {
+	id: number
 	codigo: string
 	value: number
 	valuePercent: number
 	percent: number
-    date: string
+	date: string
 	status: string
 }
 
@@ -47,22 +47,42 @@ export default function Home() {
 
 	const refModal = useRef<ModalHandler>(null)
 
-    const { userData } = useSelector((state: StoreState) => state.auth)
+	const { userData } = useSelector((state: StoreState) => state.auth)
 
-    const [purchases, setPurchases] = useState<Purchase[]>([])
+	const [purchases, setPurchases] = useState<Purchase[]>([])
+	const [purchaseEdit, setPurchaseEdit] = useState<Purchase | null>(null)
+	const [onRefresh, setOnRefresh] = useState(false)
 
-    async function handlePurchases() {
-        try {
-            const response = await api.get(`/purchases?cpf=${userData?.cpf}`)
-            setPurchases(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    
-    useEffect(() => {
-		handlePurchases()
+	async function handlePurchases() {
+		try {
+			const response = await api.get(`/purchases?cpf=${userData?.cpf}`)
+			setPurchases(response.data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const onRefreshPurchase = useCallback(() => {
+		setOnRefresh(old => !old)
 	}, [])
+
+	useEffect(() => {
+		handlePurchases()
+	}, [onRefresh])
+
+	async function handleEdit(purchase: Purchase) {
+		await setPurchaseEdit(purchase)
+		refModal.current?.handleOpen()
+	}
+
+	async function handleDelete(id: number) {
+		try {
+			await api.delete(`/purchases/${id}`)
+			handlePurchases()
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	return (
 		<Container>
@@ -84,11 +104,15 @@ export default function Home() {
 					percent={purchase.percent}
 					date={purchase.date}
 					status={purchase.status}
-					onEdit={() => {}}
-					onDelete={() => {}}
+					onEdit={() => handleEdit(purchase)}
+					onDelete={() => handleDelete(purchase.id)}
 				/>
 			))}
-            {purchases.length === 0 && <Typography color='textSecondary' align="center">Sem compras cadastrada!</Typography>}
+			{purchases.length === 0 && (
+				<Typography color='textSecondary' align='center'>
+					Sem compras cadastrada!
+				</Typography>
+			)}
 			<Tooltip title='Adicionar compra' aria-label='add'>
 				<Fab
 					color='primary'
@@ -99,7 +123,12 @@ export default function Home() {
 				</Fab>
 			</Tooltip>
 
-			<PurchaseFormModal ref={refModal} />
+			<PurchaseFormModal
+				ref={refModal}
+				purchaseEdit={purchaseEdit}
+				setPurchaseEdit={setPurchaseEdit}
+				onRefresh={() => onRefreshPurchase()}
+			/>
 		</Container>
 	)
 }
