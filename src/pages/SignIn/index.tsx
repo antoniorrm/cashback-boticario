@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -7,7 +7,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Grid, Link } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
+import { signInRequest } from '../../store/modules/auth/actions'
 import LogoBoticatio from '../../assets/img/logo-boticario-primary.svg'
 
 const useStyles = makeStyles(theme => ({
@@ -34,8 +36,21 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
 	const classes = useStyles()
 
-    const [email, setEmail] = useState<String>()
-	const [password, setPassword] = useState<String>()
+	const dispatch = useDispatch()
+
+	const [email, setEmail] = useState<string>('')
+	const [password, setPassword] = useState<string>('')
+
+	async function handleSignIn(event: FormEvent) {
+		event.preventDefault()
+		try {
+			await dispatch(
+				signInRequest({ email, password })
+			)
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -45,7 +60,7 @@ export default function SignIn() {
 				<Typography component='h1' variant='h5'>
 					Acessar Sistema
 				</Typography>
-				<form className={classes.form} noValidate>
+				<form className={classes.form} onSubmit={handleSignIn}>
 					<TextField
 						variant='outlined'
 						margin='normal'

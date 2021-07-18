@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 
 import LogoBoticario from '../../assets/img/logo-boticario-primary.svg'
 import { NumberFormatCPF } from '../../utils/maskedInputUtils'
+import api from '../../service/api'
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function SignUp() {
-	const navigate = useHistory()
+	const history = useHistory()
 	const classes = useStyles()
 
 	const [name, setName] = useState<String>()
@@ -45,6 +46,18 @@ export default function SignUp() {
 		event.preventDefault()
 		if (cpf !== undefined && cpf?.length < 11) {
 			alert('CPF inválido')
+		}
+
+		try {
+			await api.post('/auth/register', {
+				fullName: name,
+				cpf,
+				email,
+				password,
+			})
+            history.goBack()
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
@@ -93,7 +106,7 @@ export default function SignUp() {
 								variant='outlined'
 								required
 								fullWidth
-                                type="email"
+								type='email'
 								id='email'
 								label='Email Address'
 								name='email'
@@ -131,7 +144,7 @@ export default function SignUp() {
 							fullWidth
 							variant='outlined'
 							color='primary'
-							onClick={() => navigate.goBack()}
+							onClick={() => history.goBack()}
 						>
 							Voltar
 						</Button>
