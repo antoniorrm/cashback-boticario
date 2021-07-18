@@ -40,7 +40,7 @@ const MainLayout = (props: LayoutProps) => {
 					<div className={classes.content}>{children}</div>
 				</div>
 			</div>
-            <div style={{ textAlign: "center", height: "30px"}}>DEV BY: ANTONIORRM</div>
+            {/* <div style={{ textAlign: "center", height: "30px", position: 'fixed', bottom: 0}}>DEV BY: ANTONIORRM</div> */}
 		</div>
 	)
 }
