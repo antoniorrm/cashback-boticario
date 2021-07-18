@@ -1,7 +1,6 @@
 import React, {
     FormEvent,
 	forwardRef,
-	ForwardRefRenderFunction,
 	useCallback,
 	useImperativeHandle,
 	useState,
@@ -51,9 +50,9 @@ export interface ModalHandler {
 	handleOpen: () => void
 }
 
-const PurchaseFormModal: ForwardRefRenderFunction<ModalHandler> = (
-	props,
-	ref
+const PurchaseFormModal = (
+	props: any,
+	ref: React.Ref<ModalHandler> | undefined
 ) => {
 	const classes = useStyles()
 
