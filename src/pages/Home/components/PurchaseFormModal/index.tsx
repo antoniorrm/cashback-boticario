@@ -1,4 +1,11 @@
-import React, { forwardRef, ForwardRefRenderFunction, useCallback, useImperativeHandle, useState } from 'react'
+import React, {
+    FormEvent,
+	forwardRef,
+	ForwardRefRenderFunction,
+	useCallback,
+	useImperativeHandle,
+	useState,
+} from 'react'
 import {
 	Backdrop,
 	Box,
@@ -11,6 +18,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { NumberFormatCustom } from '../../../../utils/maskedInputUtils'
+import api from '../../../../service/api'
 
 const useStyles = makeStyles(theme => ({
 	margin: {
@@ -40,32 +48,50 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export interface ModalHandler {
-    handleOpen: () => void
+	handleOpen: () => void
 }
 
-const PurchaseFormModal: ForwardRefRenderFunction<ModalHandler> = (props, ref) => {
+const PurchaseFormModal: ForwardRefRenderFunction<ModalHandler> = (
+	props,
+	ref
+) => {
 	const classes = useStyles()
 
 	const [open, setOpen] = useState(false)
-    const [codigo, setCodigo] = useState<String>('')
-    const [value, setValue] = useState<String>('')
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
+	const [codigo, setCodigo] = useState<String>('')
+	const [value, setValue] = useState<String>('')
+	const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
 
 	const handleOpen = useCallback(() => {
 		setOpen(true)
 	}, [])
 
-    useImperativeHandle(ref, () => ({handleOpen}))  
+	useImperativeHandle(ref, () => ({ handleOpen }))
 	const handleClose = useCallback(() => {
 		setOpen(false)
 	}, [])
 
-
 	const handleDateChange = (date: Date | null) => {
+		console.log(date?.toISOString())
 		setSelectedDate(date)
 	}
 
-	const handleSubmit = () => {}
+	async function handleSubmit(event: FormEvent) {
+		event.preventDefault()
+		try {
+			await api.post('/purchases', {
+				codigo,
+				value,
+				valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
+				percent: 12,
+				date: selectedDate?.toISOString(),
+				status: 'EM VALIDAÇÃO',
+			})
+            handleClose()
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	return (
 		<Modal
 			disablePortal
