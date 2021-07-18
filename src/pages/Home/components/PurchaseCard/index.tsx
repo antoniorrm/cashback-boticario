@@ -36,6 +36,7 @@ type PurchaseCardProps = {
 	value: number,
 	valuePercent: number,
 	percent: number,
+    date: string,
 	status: string,
 	onEdit: () => void,
 	onDelete: () => void
@@ -44,7 +45,7 @@ type PurchaseCardProps = {
 export default function PurchaseCard(props: PurchaseCardProps) {
 	const classes = useStyles()
 
-    const {codigo, value, valuePercent, percent, status, onEdit, onDelete} = props
+    const {codigo, value, valuePercent, percent, date, status, onEdit, onDelete} = props
 
 	return (
 		<Card className={classes.root}>
@@ -65,6 +66,12 @@ export default function PurchaseCard(props: PurchaseCardProps) {
 					<Typography color='textSecondary'>CASHBACK (%)</Typography>
 					<Typography variant='body2' component='p'>
 						R$ {valuePercent} ({percent}%)
+					</Typography>
+				</div>
+				<div className={classes.item}>
+					<Typography color='textSecondary'>DATA</Typography>
+					<Typography variant='body2' component='p'>
+						{date}
 					</Typography>
 				</div>
 				<div className={classes.item}>
