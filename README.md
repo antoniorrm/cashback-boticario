@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+## O Boticario - Desafio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O projeto Front-end foi desenvolvido em ReactJS com o uso do CRA, utilizei o Material-UI como framework de UI e Redux para State Management.
 
-## Available Scripts
+Utilizei a api fake com JWT para poder implementar a autenticação, neste fluxo utilizei o redux e redux saga.
 
-In the project directory, you can run:
+Utilizei uma rota da api fake para simular a api externa para o caso do cashback acumulado.
 
-### `yarn start`
+Foi utilizado o Jest e Testing-libary para a realização dos testes.
+## Features
+- Tela de cadastro de um novo revendedor(a) solicitando Nome completo, CPF, e-mail e senha;
+- Tela de login para informar e-mail e senha;
+- Tela de cadastro de compras onde deverá ser informado o código, valor e data;
+- Tela de listagem das compras cadastradas exibindo as informações de código da compra, valor, data, % de cashback aplicado, valor do cashback e status do cadastro;
+- O status do cadastro poderá ser “Em validação”, “Reprovado” e “Aprovado;
+- Opção para editar e excluir uma compra caso ele esteja“Em Validação;
+- Tela para exibir o valor de cashback acumulado até o momento, esta informação virá de uma das APIs do boticário, que é um outro sistema que agrupa e consolida todas as vendas do revendedor(a);
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Task List
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [x] Login
+	- [x] Informar e-mail e senha;
+- [x] SignUp
+	- [x] Nome completo, CPF, e-mail e senha;
+- [x] Home
+	- [x] Exibir o valor de cashback acumulado até o momento, esta informação virá de uma APIs do boticário;
+	- [x] Listar Produtos com código da compra, valor, data, % de cashback aplicado, valor do cashback e status do cadastro;
+	- [x] O status do cadastro poderá ser “Em validação”, “Reprovado” e “Aprovado;
+	- [x] Opção para editar e excluir uma compra;
+- [x] Cadastro
+	- [x] Deverá ser informado o código, valor e data _(A % de CashBack foi definida fixamente)_;
+- [x] Sair
 
-### `yarn test`
+## Fake API
+[Fake Api Jwt with Json Server](https://github.com/antoniorrm/fake-api-jwt-json-server)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Links
 
-### `yarn build`
+> Wire installation is required for package management.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Install Yarn](https://yarnpkg.com/lang/en/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Dependences
+`$ yarn install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Run Application
+`$ yarn start`
