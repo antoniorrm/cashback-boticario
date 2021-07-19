@@ -40,10 +40,10 @@ export default function SignUp() {
 	const classes = useStyles()
 	const {enqueueSnackbar} = useSnackbar()
     
-	const [name, setName] = useState<String>()
-	const [cpf, setCpf] = useState<String>()
-	const [email, setEmail] = useState<String>()
-	const [password, setPassword] = useState<String>()
+	const [name, setName] = useState<String>('')
+	const [cpf, setCpf] = useState<String>('')
+	const [email, setEmail] = useState<String>('')
+	const [password, setPassword] = useState<String>('')
 
 	async function handleSignUp(event: FormEvent) {
 		event.preventDefault()
