@@ -23,6 +23,7 @@ export default function auth(
 				...state,
 				loadingSignInRequest: false,
 				isSignedIn: true,
+				error: false,
 				token: action.payload.token,
 				userData: action.payload.userData,
 			}

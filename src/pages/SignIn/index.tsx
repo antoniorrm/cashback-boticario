@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -7,11 +7,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Grid, Link } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 
 import { signInRequest } from '../../store/modules/auth/actions'
 import LogoBoticatio from '../../assets/img/logo-boticario-primary.svg'
+import { StoreState } from '../../store/createStore'
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -38,10 +39,19 @@ export default function SignIn() {
 	const classes = useStyles()
 
 	const dispatch = useDispatch()
-	const {enqueueSnackbar} = useSnackbar()
+	const { error } = useSelector((state: StoreState) => state.auth)
+	const { enqueueSnackbar } = useSnackbar()
 
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
+
+	useEffect(() => {
+		if (error) {
+			enqueueSnackbar('Error ao efetuar login, verifique os dados', {
+				variant: 'error',
+			})
+		}
+	}, [error])
 
 	async function handleSignIn(event: FormEvent) {
 		event.preventDefault()
@@ -50,7 +60,7 @@ export default function SignIn() {
 			// enqueueSnackbar('Bem vindo', {
 			// 	variant: 'success',
 			// })
-		} catch (error) {
+		} catch (erro) {
 			enqueueSnackbar('Error ao efetuar login', {
 				variant: 'error',
 			})
