@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Home page render correctly renders Home component correctly 1`] = `
+<div>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-3 makeStyles-header-1"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h5"
+      >
+        Bem vindo, 
+      </h2>
+      <div
+        class="MuiPaper-root MuiCard-root makeStyles-root-4 MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div
+          class="MuiCardContent-root"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h5"
+          >
+            Cashback acumulado
+          </h2>
+          <p
+            class="MuiTypography-root MuiTypography-body2"
+          >
+            R$ 0,00
+          </p>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="MuiTypography-root MuiTypography-h5"
+    >
+      Compras cadastradas
+    </h2>
+    <p
+      class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-alignCenter"
+    >
+      Sem compras cadastrada!
+    </p>
+    <button
+      aria-label="add"
+      class="MuiButtonBase-root MuiFab-root makeStyles-absolute-2 MuiFab-primary"
+      tabindex="0"
+      title="Adicionar compra"
+      type="button"
+    >
+      <span
+        class="MuiFab-label"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</div>
+`;
