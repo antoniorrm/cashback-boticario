@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { memo }from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, IconButton, Typography } from '@material-ui/core'
 import { Delete, Edit } from '@material-ui/icons'
@@ -44,7 +44,7 @@ type PurchaseCardProps = {
 	onDelete: () => void
 }
 
-export default function PurchaseCard(props: PurchaseCardProps) {
+function PurchaseCardComponent(props: PurchaseCardProps) {
 	const classes = useStyles()
 
 	const {
@@ -105,3 +105,5 @@ export default function PurchaseCard(props: PurchaseCardProps) {
 		</Card>
 	)
 }
+
+export default memo(PurchaseCardComponent)

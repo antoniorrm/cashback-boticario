@@ -74,12 +74,12 @@ export default function Home() {
 		handlePurchases()
 	}, [onRefresh])
 
-	async function handleEdit(purchase: Purchase) {
+	const handleEdit = useCallback(async (purchase: Purchase) => {
 		await setPurchaseEdit(purchase)
 		refModal.current?.handleOpen()
-	}
-
-	async function handleDelete(id: number) {
+	}, [])
+    
+	const handleDelete = useCallback(async (id: number) => {
 		if (window.confirm(`Você realmente deletar?`)) {
 			try {
 				await api.delete(`/purchases/${id}`)
@@ -90,7 +90,7 @@ export default function Home() {
 				})
 			}
 		}
-	}
+	}, [])
 
 	return (
 		<Container>
