@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import { useSelector } from 'react-redux'
+import { useSnackbar } from 'notistack'
+import axios from 'axios'
+
+import { StoreState } from '../../store/createStore'
+import { formatCurrecyBR } from '../../utils/formatCurrecyBR'
+import { getAccessToken } from '../../service/store'
 
 const useStyles = makeStyles({
 	root: {
@@ -12,6 +19,33 @@ const useStyles = makeStyles({
 
 const CashbackCard = () => {
 	const classes = useStyles()
+	const { enqueueSnackbar } = useSnackbar()
+	const { userData } = useSelector((state: StoreState) => state.auth)
+
+	const [cashback, setCashback] = useState(0)
+
+    // Exemplo de como consumiria a api externa
+	async function handleCashbackData() {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_API_CASHBACK_URL}${userData?.cpf}`,
+				{
+					headers: {
+						Authorization: `Bearer ${getAccessToken()}`,
+					},
+				}
+			)
+			setCashback(response.data[0].cashbackValue)
+		} catch (error) {
+			enqueueSnackbar('Error no carregamento do Cashback', {
+				variant: 'error',
+			})
+		}
+	}
+
+	useEffect(() => {
+		handleCashbackData()
+	}, [])
 
 	return (
 		<Card className={classes.root}>
@@ -20,7 +54,7 @@ const CashbackCard = () => {
 					Cashback acumulado
 				</Typography>
 				<Typography variant='body2' component='p'>
-					R$ 100,00
+					{formatCurrecyBR(cashback)}
 				</Typography>
 			</CardContent>
 		</Card>
