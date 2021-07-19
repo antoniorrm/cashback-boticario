@@ -76,11 +76,13 @@ export default function Home() {
 	}
 
 	async function handleDelete(id: number) {
-		try {
-			await api.delete(`/purchases/${id}`)
-			handlePurchases()
-		} catch (error) {
-			console.log(error)
+		if (window.confirm(`Você realmente deletar?`)) {
+			try {
+				await api.delete(`/purchases/${id}`)
+				handlePurchases()
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	}
 
