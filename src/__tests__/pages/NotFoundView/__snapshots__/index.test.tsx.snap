@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFoundView component renders NotFoundView component correctly 1`] = `
+<div>
+  <div
+    class="makeStyles-root-1"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-3"
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthMd"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-h1 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+        >
+          404: Página não encontrada
+        </h1>
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+        >
+          Está página não está disponivel no sistema!
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>
+`;
