@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CashbackCard render sucess renders component correct 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiCard-root makeStyles-root-1 MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h5"
+      >
+        Cashback acumulado
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body2"
+      >
+        R$ 0,00
+      </p>
+    </div>
+  </div>
+</div>
+`;
