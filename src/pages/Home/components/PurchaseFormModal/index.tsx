@@ -20,6 +20,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { useSelector } from 'react-redux'
+import { useSnackbar } from 'notistack'
 
 import { NumberFormatCustom } from '../../../../utils/maskedInputUtils'
 import api from '../../../../service/api'
@@ -69,7 +70,7 @@ const PurchaseFormModal = (
 ) => {
 	const classes = useStyles()
 	const { onRefresh, purchaseEdit, setPurchaseEdit } = props
-
+    const { enqueueSnackbar } = useSnackbar()
 	const { userData } = useSelector((state: StoreState) => state.auth)
 
 	const [open, setOpen] = useState(false)
@@ -128,7 +129,9 @@ const PurchaseFormModal = (
 			handleClose()
 			onRefresh()
 		} catch (error) {
-			console.log(error)
+			enqueueSnackbar('Error salvar', {
+				variant: 'error',
+			})
 		}
 	}
 

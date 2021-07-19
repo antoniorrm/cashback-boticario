@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container'
 import { Grid, Link } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useSnackbar } from 'notistack'
 
 import { signInRequest } from '../../store/modules/auth/actions'
 import LogoBoticatio from '../../assets/img/logo-boticario-primary.svg'
@@ -37,6 +38,7 @@ export default function SignIn() {
 	const classes = useStyles()
 
 	const dispatch = useDispatch()
+	const {enqueueSnackbar} = useSnackbar()
 
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
@@ -44,11 +46,14 @@ export default function SignIn() {
 	async function handleSignIn(event: FormEvent) {
 		event.preventDefault()
 		try {
-			await dispatch(
-				signInRequest({ email, password })
-			)
+			await dispatch(signInRequest({ email, password }))
+			// enqueueSnackbar('Bem vindo', {
+			// 	variant: 'success',
+			// })
 		} catch (error) {
-			console.log(error)
+			enqueueSnackbar('Error ao efetuar login', {
+				variant: 'error',
+			})
 		}
 	}
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { FormEvent, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -7,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
 
 import LogoBoticario from '../../assets/img/logo-boticario-primary.svg'
 import { NumberFormatCPF } from '../../utils/maskedInputUtils'
@@ -36,7 +38,8 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp() {
 	const history = useHistory()
 	const classes = useStyles()
-
+	const {enqueueSnackbar} = useSnackbar()
+    
 	const [name, setName] = useState<String>()
 	const [cpf, setCpf] = useState<String>()
 	const [email, setEmail] = useState<String>()
@@ -45,7 +48,7 @@ export default function SignUp() {
 	async function handleSignUp(event: FormEvent) {
 		event.preventDefault()
 		if (cpf !== undefined && cpf?.length < 11) {
-			alert('CPF inválido')
+			window.alert('CPF inválido')
 		}
 
 		try {
@@ -55,9 +58,14 @@ export default function SignUp() {
 				email,
 				password,
 			})
-            history.goBack()
+			history.goBack()
+			enqueueSnackbar('Conta Criada!', {
+				variant: 'success',
+			})
 		} catch (error) {
-			console.log(error)
+			enqueueSnackbar('Error ao criar conta', {
+				variant: 'error',
+			})
 		}
 	}
 

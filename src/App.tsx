@@ -5,6 +5,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Router } from 'react-router-dom'
+import { SnackbarProvider } from 'notistack'
 
 import './App.css'
 import theme from './theme'
@@ -18,9 +19,11 @@ function App() {
 			<Provider store={store}>
 				<PersistGate persistor={persistor}>
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Router history={history}>
-						    <Routes />
-                        </Router>
+						<SnackbarProvider maxSnack={1}>
+							<Router history={history}>
+								<Routes />
+							</Router>
+						</SnackbarProvider>
 					</MuiPickersUtilsProvider>
 				</PersistGate>
 			</Provider>

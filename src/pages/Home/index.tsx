@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	Box,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import { useSelector } from 'react-redux'
+import { useSnackbar } from 'notistack'
 
 import PurchaseCard from './components/PurchaseCard'
 import CashbackCard from '../../components/CashbackCard'
@@ -44,7 +46,7 @@ export type Purchase = {
 
 export default function Home() {
 	const classes = useStyles()
-
+	const { enqueueSnackbar } = useSnackbar()
 	const refModal = useRef<ModalHandler>(null)
 
 	const { userData } = useSelector((state: StoreState) => state.auth)
@@ -58,7 +60,9 @@ export default function Home() {
 			const response = await api.get(`/purchases?cpf=${userData?.cpf}`)
 			setPurchases(response.data)
 		} catch (error) {
-			console.log(error)
+			enqueueSnackbar('Error ao carregar compras', {
+				variant: 'error',
+			})
 		}
 	}
 
@@ -81,7 +85,9 @@ export default function Home() {
 				await api.delete(`/purchases/${id}`)
 				handlePurchases()
 			} catch (error) {
-				console.log(error)
+				enqueueSnackbar('Error ao deletar compra', {
+					variant: 'error',
+				})
 			}
 		}
 	}
