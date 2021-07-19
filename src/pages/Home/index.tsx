@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import {
 	Box,
 	Container,
@@ -70,7 +70,7 @@ export default function Home() {
 		setOnRefresh(old => !old)
 	}, [])
 
-	useEffect(() => {
+	useMemo(() => {
 		handlePurchases()
 	}, [onRefresh])
 
