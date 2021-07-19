@@ -110,7 +110,7 @@ const PurchaseFormModal = (
 			if (purchaseEdit !== null) {
 				await api.patch(`/purchases/${purchaseEdit.id}`, {
 					codigo,
-					value,
+					value: Number(value),
 					valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
 					percent: 12,
 					date: selectedDate?.toISOString(),
@@ -118,7 +118,7 @@ const PurchaseFormModal = (
 			} else {
 				await api.post('/purchases', {
 					codigo,
-					value,
+					value: Number(value),
 					valuePercent: Number(((12 / 100) * Number(value)).toFixed(2)),
 					percent: 12,
 					date: selectedDate?.toISOString(),
